@@ -19,3 +19,6 @@ call method
     Paging<Playlist> playlistPaging = await spotify.GetAUsersPlaylists("username here");
     
     Track track = await spotify.GetATrack("3g0XVm6ZTWHbtTTfKhmMo7");
+	
+	
+some of methods has not been added yet. as soon as possible i will add them
