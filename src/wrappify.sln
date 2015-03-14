@@ -3,14 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wrappify", "wrappify\wrappify.csproj", "{BF33AA9C-D548-46E6-ACA6-B52E6DD4365B}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wrappify.Tests", "wrappify.Tests\wrappify.Tests.csproj", "{5C9D53EA-6CCD-484C-A6F8-4BF620041B3E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{ECB56DA2-276A-49EF-818E-59FFFCAA97E7}"
 	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
 		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wrappify", "wrappify\wrappify.csproj", "{295B643F-3C04-4782-8DFA-29A3013ED6A5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,14 +21,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BF33AA9C-D548-46E6-ACA6-B52E6DD4365B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BF33AA9C-D548-46E6-ACA6-B52E6DD4365B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BF33AA9C-D548-46E6-ACA6-B52E6DD4365B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BF33AA9C-D548-46E6-ACA6-B52E6DD4365B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5C9D53EA-6CCD-484C-A6F8-4BF620041B3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5C9D53EA-6CCD-484C-A6F8-4BF620041B3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C9D53EA-6CCD-484C-A6F8-4BF620041B3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C9D53EA-6CCD-484C-A6F8-4BF620041B3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{295B643F-3C04-4782-8DFA-29A3013ED6A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{295B643F-3C04-4782-8DFA-29A3013ED6A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{295B643F-3C04-4782-8DFA-29A3013ED6A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{295B643F-3C04-4782-8DFA-29A3013ED6A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
