@@ -7,7 +7,7 @@ using wrappify.Models;
 namespace wrappify.Tests
 {
     [TestClass]
-    [Ignore]
+    //[Ignore]
     public class SpotifyTests
     {
         const string Host = "api.spotify.com";
@@ -20,6 +20,24 @@ namespace wrappify.Tests
         public void Init()
         {
             Spotify = new Spotify(Scheme, Host, Port);
+        }
+
+        [TestMethod]
+        public async Task GetAnAlbumTest()
+        {
+            Album album = await Spotify.GetAnAlbum("07DseFAuj1KMp807W9XZVl");
+        }
+
+        [TestMethod]
+        public async Task GetSeveralAlbumsTest()
+        {
+            AlbumModel albumModel = await Spotify.GetSeveralAlbums("07DseFAuj1KMp807W9XZVl");
+        }
+
+        [TestMethod]
+        public async Task GetAnAlbumsTracks()
+        {
+            Paging<TrackSimplified> tracks = await Spotify.GetAnAlbumsTracks("07DseFAuj1KMp807W9XZVl");
         }
 
         [TestMethod]
@@ -47,10 +65,10 @@ namespace wrappify.Tests
         [TestMethod]
         public async Task GetAccessToken()
         {
-            var client_id = "aba4782305d0480f9dbe2b63a7a77b42";
-            var client_secret = "4f2585881e99474f92b0e67ea69b22d0";
-            var redirect_uri = "http://localhost/callback";
-            string code = "";
+            const string client_id = "aba4782305d0480f9dbe2b63a7a77b42";
+            const string client_secret = "4f2585881e99474f92b0e67ea69b22d0";
+            const string redirect_uri = "http://localhost/callback";
+            const string code = "";
             AccessTokenModel accesstoken = await Spotify.GetAccessToken(code, redirect_uri, client_secret, client_id);
             Assert.IsNotNull(accesstoken);
             Assert.IsFalse(string.IsNullOrEmpty(accesstoken.AccessToken));

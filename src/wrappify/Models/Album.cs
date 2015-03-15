@@ -4,6 +4,13 @@ using Newtonsoft.Json;
 namespace wrappify.Models
 {
     [JsonObject]
+    public class AlbumModel
+    {
+        [JsonProperty(PropertyName = "albums")]
+        public Album[] Albums { get; set; }    
+    }
+
+    [JsonObject]
     public class Album
     {
         [JsonProperty(PropertyName = "album_type")]
