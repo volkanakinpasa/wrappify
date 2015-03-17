@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using wrappify.Models;
-using wrappify.Responses;
 
 namespace wrappify.Interfaces
 {
@@ -20,7 +19,8 @@ namespace wrappify.Interfaces
         Task<PostResult> RemoveATrack(string userId, string playlistId, List<string> trackUris);
         Task<Track> GetATrack(string trackId);
         Task<TrackResult> GetSeveralTracks(string trackIds);
+        string GetAuthorizeUrl(string clientId, string redirectUri, string scope);
         void SetAccessToken(string accessToken);
-        Task<AccessTokenModel> GetAccessToken(string code, string _redirectUri, string _clientSecret, string _clientId);
+        Task<AccessTokenModel> GetAccessToken(string code, string redirectUri, string clientSecret, string clientId);
     }
 }

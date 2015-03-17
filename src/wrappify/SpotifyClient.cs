@@ -30,7 +30,7 @@ namespace wrappify
         {
         }
 
-        internal SpotifyClient(IRequestConfiguration requestConfiguration, IRequestManager requestOperation)
+        public SpotifyClient(IRequestConfiguration requestConfiguration, IRequestManager requestOperation)
         {
             _requestConfiguration = requestConfiguration;
             _requestOperation = requestOperation;
@@ -59,7 +59,6 @@ namespace wrappify
                 throw new SpotifyException(ex);
             }
         }
-
         public async Task<AlbumModel> GetSeveralAlbums(string ids)
         {
             try
@@ -349,7 +348,7 @@ namespace wrappify
                 throw new SpotifyException(ex);
             }
         }
-        public async Task<AccessTokenModel> GetAccessToken(string code, string _redirectUri, string _clientSecret, string _clientId)
+        public async Task<AccessTokenModel> GetAccessToken(string code, string redirectUri, string clientSecret, string clientId)
         {
             try
             {
@@ -357,9 +356,9 @@ namespace wrappify
                                                   {
                                                       {"code", code},
                                                       {"grant_type", "authorization_code"},
-                                                      {"redirect_uri", _redirectUri},
-                                                      {"client_secret", _clientSecret},
-                                                      {"client_id", _clientId}
+                                                      {"redirect_uri", redirectUri},
+                                                      {"client_secret", clientSecret},
+                                                      {"client_id", clientId}
                                                   };
 
                 string url = string.Format("https://accounts.spotify.com/api/token");
@@ -380,10 +379,16 @@ namespace wrappify
             }
 
         }
+
+        public string GetAuthorizeUrl(string clientId, string redirectUri, string scope)
+        {
+            return string.Format("https://accounts.spotify.com/authorize/?client_id={0}&response_type=code&redirect_uri={1}&scope={2}", clientId, redirectUri, scope);
+        }
         public void SetAccessToken(string accessToken)
         {
             AccessToken = accessToken;
         }
+
         private void HandleIfAndError(HttpResponseMessage message, string responseJson)
         {
             if (message.StatusCode < HttpStatusCode.OK || message.StatusCode >= HttpStatusCode.BadRequest)
