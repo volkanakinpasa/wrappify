@@ -18,16 +18,16 @@ namespace wrappify.Tests
 
         private ISpotifyClient _spotifyClient;
         private Fixture _fixture;
-        private Mock<IRequestOperation> _requestOperationrMock;
+        private Mock<IRequestOperation> _requestOperationMock;
 
         [TestInitialize]
         public void Init()
         {
-            _requestOperationrMock = new Mock<IRequestOperation>();
+            _requestOperationMock = new Mock<IRequestOperation>();
             
-            _spotifyClient = new SpotifyClient(_requestOperationrMock.Object, new RequestConfiguration(Host,Port,Scheme));
+            _spotifyClient = new SpotifyClient(_requestOperationMock.Object, new RequestConfiguration(Host,Port,Scheme));
             //either you write like the following line
-            _spotifyClient = new SpotifyClient(_requestOperationrMock.Object);
+            _spotifyClient = new SpotifyClient(_requestOperationMock.Object);
 
             _fixture = new Fixture();
         }
@@ -42,13 +42,13 @@ namespace wrappify.Tests
 
             string serializedAlbum = JsonConvert.SerializeObject(albumResult);
 
-            _requestOperationrMock.Setup(manager => manager.Get(It.IsAny<string>())).Returns(Task.FromResult(serializedAlbum)).Verifiable();
+            _requestOperationMock.Setup(manager => manager.Get(It.IsAny<string>())).Returns(Task.FromResult(serializedAlbum)).Verifiable();
 
             Album result = await _spotifyClient.GetAnAlbum("07DseFAuj1KMp807W9XZVl");
 
             result.Id.Should().Be(albumResult.Id);
 
-            _requestOperationrMock.VerifyAll();
+            _requestOperationMock.VerifyAll();
         }
 
         [TestMethod]
@@ -58,7 +58,7 @@ namespace wrappify.Tests
 
             string serializedAlbum = JsonConvert.SerializeObject(user);
 
-            _requestOperationrMock.Setup(manager => manager.Get(It.IsAny<string>(), It.IsAny<string>(), true)).Returns(Task.FromResult(serializedAlbum)).Verifiable();
+            _requestOperationMock.Setup(manager => manager.Get(It.IsAny<string>(), It.IsAny<string>(), true)).Returns(Task.FromResult(serializedAlbum)).Verifiable();
 
             _spotifyClient.SetAccessToken(_fixture.Create<string>("token"));
 
@@ -68,7 +68,7 @@ namespace wrappify.Tests
 
             result.Id.Should().Be(user.Id);
 
-            _requestOperationrMock.VerifyAll();
+            _requestOperationMock.VerifyAll();
         }
 
         //[TestMethod]

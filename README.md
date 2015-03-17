@@ -3,22 +3,24 @@
 
 create new instance
 
-    ISpotify spotify = new Spotify();
-    ISpotify spotify = new Spotify(Scheme, Host, Port);
+
+    IRequestOperation requestOperation = new RequestOperation();
+    ISpotifyClient spotifyClient = new ISpotifyClient(requestOperation);
+
 
 if you need to access personal data, you have to set and access token
 
-    spotify.SetAccessToken("accecc_token here");
+    spotifyClient.SetAccessToken("access_token");
 
 call method
 
-    User user = await spotify.GetCurrentUserProfileTest();
+    User user = await spotifyClient.GetCurrentUserProfileTest();
     
-    User user = await spotify.GetUser("username here");
+    User user = await spotifyClient.GetUser("username here");
     
-    Paging<Playlist> playlistPaging = await spotify.GetAUsersPlaylists("username here");
+    Paging<Playlist> playlistPaging = await spotifyClient.GetAUsersPlaylists("username here");
     
-    Track track = await spotify.GetATrack("3g0XVm6ZTWHbtTTfKhmMo7");
+    Track track = await spotifyClient.GetATrack("3g0XVm6ZTWHbtTTfKhmMo7");
 	
 	
 some of methods has not been added yet. as soon as possible i will add them
