@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using wrappify.Models;
+using wrappify.Responses;
 
 namespace wrappify.Interfaces
 {
