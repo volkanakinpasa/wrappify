@@ -19,7 +19,7 @@ namespace wrappify.Tests
         [TestInitialize]
         public void Init()
         {
-            Spotify = new Spotify(Scheme, Host, Port);
+            Spotify = new Spotify(new RequestConfiguration(Scheme, Host, Port));
         }
 
         [TestMethod]

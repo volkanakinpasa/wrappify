@@ -1,19 +1,18 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using wrappify.Interfaces;
 using wrappify.Models;
-
 namespace wrappify
 {
     public partial class Spotify
     {
         public async Task<Album> GetAnAlbum(string id)
         {
-            SetPath(string.Format("v1/albums/{0}", id));
+            string path = string.Format("v1/albums/{0}", id);
 
-            IWebApiRequest request = new WebApiRequest(_url);
-
-            string responseJson = await request.Get();
+            string responseJson = await _requestManager.Get(path);
 
             Album result = JsonConvert.DeserializeObject<Album>(responseJson, new JsonSerializerSettings
             {
@@ -25,11 +24,9 @@ namespace wrappify
         }
         public async Task<AlbumModel> GetSeveralAlbums(string ids)
         {
-            SetPath(string.Format("v1/albums?ids={0}", ids));
+            string path = string.Format("v1/albums?ids={0}", ids);
 
-            IWebApiRequest request = new WebApiRequest(_url);
-
-            string responseJson = await request.Get();
+            string responseJson = await _requestManager.Get(path);
 
             AlbumModel result = JsonConvert.DeserializeObject<AlbumModel>(responseJson, new JsonSerializerSettings
             {
@@ -43,11 +40,7 @@ namespace wrappify
         {
             string path = string.Format("v1/albums/{0}/tracks?limit={1}&offset={2}", id, limit == 0 ? 20 : 0, offset);
 
-            SetPath(path);
-
-            IWebApiRequest request = new WebApiRequest(_url);
-
-            string responseJson = await request.Get();
+            string responseJson = await _requestManager.Get(path);
 
             Paging<TrackSimplified> result = JsonConvert.DeserializeObject<Paging<TrackSimplified>>(responseJson, new JsonSerializerSettings
             {

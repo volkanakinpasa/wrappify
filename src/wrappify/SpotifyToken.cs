@@ -25,9 +25,9 @@ namespace wrappify
 
             string url = string.Format("https://accounts.spotify.com/api/token");
 
-            IWebApiRequest request = new WebApiRequest(url);
+            IRequestManager requestManager = new RequestManager(_scheme, _host, _port);
 
-            string json = await request.Post(postData);
+            string json = await requestManager.Post("", postData);
 
             var obj = JsonConvert.DeserializeObject<AccessTokenModel>(json, new JsonSerializerSettings
             {

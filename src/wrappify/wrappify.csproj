@@ -82,7 +82,7 @@
     <Compile Include="SpotifyToken.cs" />
     <Compile Include="SpotifyTrack.cs" />
     <Compile Include="SpotifyUser.cs" />
-    <Compile Include="WebApiRequest.cs" />
+    <Compile Include="RequestManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

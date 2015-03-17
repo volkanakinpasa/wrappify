@@ -13,9 +13,9 @@ namespace wrappify
 
             SetPath(path);
 
-            IWebApiRequest request = new WebApiRequest(_url);
+            IRequestManager requestManager = new RequestManager(_url);
 
-            string responseJson = await request.Get();
+            string responseJson = await requestManager.Get();
 
             Track track = JsonConvert.DeserializeObject<Track>(responseJson, new JsonSerializerSettings
             {
@@ -31,9 +31,9 @@ namespace wrappify
 
             SetPath(path);
 
-            IWebApiRequest request = new WebApiRequest(_url);
+            IRequestManager requestManager = new RequestManager(_url);
 
-            string responseJson = await request.Get();
+            string responseJson = await requestManager.Get();
 
             TrackResult trackResult = JsonConvert.DeserializeObject<TrackResult>(responseJson, new JsonSerializerSettings
             {

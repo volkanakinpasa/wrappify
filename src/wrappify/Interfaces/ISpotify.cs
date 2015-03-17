@@ -6,7 +6,7 @@ namespace wrappify.Interfaces
 {
     public interface ISpotify
     {
-        string Path { get; set; }
+        //string Path { get; set; }
         Task<Album> GetAnAlbum(string id);
         Task<AlbumModel> GetSeveralAlbums(string ids);
         Task<Paging<TrackSimplified>> GetAnAlbumsTracks(string id, int limit = 0, int offset = 0);

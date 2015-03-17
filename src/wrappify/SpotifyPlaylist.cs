@@ -12,11 +12,7 @@ namespace wrappify
         {
             string path = string.Format("v1/users/{0}/playlists?limit={1}&offset={2}", userId, limit, offset);
 
-            SetPath(path);
-
-            IWebApiRequest request = new WebApiRequest(_url);
-
-            string responseJson = await request.Get(AccessToken, true);
+            string responseJson = await _requestManager.Get(path, AccessToken, true);
 
             Paging<Playlist> paging = JsonConvert.DeserializeObject<Paging<Playlist>>(responseJson, new JsonSerializerSettings
             {
@@ -30,11 +26,9 @@ namespace wrappify
         {
             string path = string.Format("v1/users/{0}/playlists/{1}?fields={2}", userId, playlistId, fields ?? "");
 
-            SetPath(path);
 
-            IWebApiRequest request = new WebApiRequest(_url);
 
-            string responseJson = await request.Get(AccessToken, true);
+            string responseJson = await _requestManager.Get(path, AccessToken, true);
 
             Playlist result = JsonConvert.DeserializeObject<Playlist>(responseJson, new JsonSerializerSettings
             {
@@ -48,11 +42,9 @@ namespace wrappify
         {
             string path = string.Format("v1/users/{0}/playlists/{1}/tracks?fields={2}", userId, playlistId, fields ?? "");
 
-            SetPath(path);
 
-            IWebApiRequest request = new WebApiRequest(_url);
 
-            string responseJson = await request.Get(AccessToken, true);
+            string responseJson = await _requestManager.Get(path, AccessToken, true);
 
             Paging<playlisttrack> paging = JsonConvert.DeserializeObject<Paging<playlisttrack>>(responseJson, new JsonSerializerSettings
             {
@@ -66,15 +58,12 @@ namespace wrappify
         {
             string path = string.Format("v1/users/{0}/playlists", userId);
 
-            SetPath(path);
-
-            IWebApiRequest request = new WebApiRequest(_url);
 
             Dictionary<string, string> dictionary = new Dictionary<string, string>() { { "name", name }, { "public", isPublic ? "true" : "false" } };
 
             string serializedata = JsonConvert.SerializeObject(dictionary, Formatting.Indented);
 
-            string responseJson = await request.Post(serializedata, AccessToken, true);
+            string responseJson = await _requestManager.Post(path, serializedata, AccessToken, true);
 
             Playlist result = JsonConvert.DeserializeObject<Playlist>(responseJson, new JsonSerializerSettings
             {
@@ -88,15 +77,13 @@ namespace wrappify
         {
             string path = string.Format("v1/users/{0}/playlists/{1}/tracks", userId, playlistId);
 
-            SetPath(path);
 
-            IWebApiRequest request = new WebApiRequest(_url);
 
             Dictionary<string, string[]> dictionary = new Dictionary<string, string[]>() { { "uris", trackUris } };
 
             string serializedata = JsonConvert.SerializeObject(dictionary, Formatting.Indented);
 
-            string responseJson = await request.Post(serializedata, AccessToken, true);
+            string responseJson = await _requestManager.Post(path, serializedata, AccessToken, true);
 
             PostResult result = JsonConvert.DeserializeObject<PostResult>(responseJson, new JsonSerializerSettings
             {
@@ -110,10 +97,6 @@ namespace wrappify
         {
             string path = string.Format("v1/users/{0}/playlists/{1}/tracks", userId, playlistId);
 
-            SetPath(path);
-
-            IWebApiRequest request = new WebApiRequest(_url);
-
             Dictionary<string, Dictionary<string, string>[]> arr = new Dictionary<string, Dictionary<string, string>[]>();
 
             Dictionary<string, string>[] array = trackUris.Select(s => new Dictionary<string, string> { { "uri", s } }).ToArray();
@@ -122,7 +105,7 @@ namespace wrappify
 
             string serializedata = JsonConvert.SerializeObject(arr, Formatting.Indented);
 
-            string responseJson = await request.Delete(serializedata, AccessToken, true);
+            string responseJson = await _requestManager.Delete(path, serializedata, AccessToken, true);
 
             PostResult result = JsonConvert.DeserializeObject<PostResult>(responseJson, new JsonSerializerSettings
             {

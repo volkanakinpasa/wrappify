@@ -13,9 +13,9 @@ namespace wrappify
 
             SetPath(path);
 
-            IWebApiRequest request = new WebApiRequest(_url);
+            IRequestManager requestManager = new RequestManager(_url);
 
-            string responseJson = await request.Get(AccessToken, false);
+            string responseJson = await requestManager.Get(AccessToken, false);
 
             User user = JsonConvert.DeserializeObject<User>(responseJson, new JsonSerializerSettings
             {
@@ -31,9 +31,9 @@ namespace wrappify
 
             SetPath(path);
 
-            IWebApiRequest request = new WebApiRequest(_url);
+            IRequestManager requestManager = new RequestManager(_url);
 
-            string responseJson = await request.Get(AccessToken, true);
+            string responseJson = await requestManager.Get(AccessToken, true);
 
             User user = JsonConvert.DeserializeObject<User>(responseJson, new JsonSerializerSettings
             {

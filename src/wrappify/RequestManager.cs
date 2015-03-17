@@ -7,22 +7,27 @@ using wrappify.Interfaces;
 
 namespace wrappify
 {
-    public class WebApiRequest : IWebApiRequest
+    public class RequestManager : IRequestManager
     {
+        private readonly IRequestConfiguration _requestConfiguration;
         public string Url { get; set; }
-        public WebApiRequest(string url)
+        public RequestManager(IRequestConfiguration requestConfiguration)
         {
-            Url = url;
+            _requestConfiguration = requestConfiguration;
+            
         }
-        public async Task<string> Get()
+
+        public async Task<string> Get(string path)
         {
+            Url = string.Format("{0}://{1}:{2}/{3}", _requestConfiguration.Scheme, _requestConfiguration.Host, _requestConfiguration.Port);
+
             HttpClient client = new HttpClient();
 
             HttpResponseMessage httpResponseMessage = await client.GetAsync(Url);
 
             return await httpResponseMessage.Content.ReadAsStringAsync();
         }
-        public async Task<string> Get(string accessToken, bool bearer)
+        public async Task<string> Get(string path, string accessToken, bool bearer)
         {
             HttpClient client = new HttpClient();
 
@@ -32,7 +37,7 @@ namespace wrappify
 
             return await httpResponseMessage.Content.ReadAsStringAsync();
         }
-        public async Task<string> Post(Dictionary<string, string> data)
+        public async Task<string> Post(string path, Dictionary<string, string> data)
         {
             HttpClient client = new HttpClient();
 
@@ -42,7 +47,7 @@ namespace wrappify
 
             return await httpResponseMessage.Content.ReadAsStringAsync();
         }
-        public async Task<string> Post(string data, string accessToken, bool bearer)
+        public async Task<string> Post(string path, string data, string accessToken, bool bearer)
         {
             HttpClient client = new HttpClient();
 
@@ -52,7 +57,7 @@ namespace wrappify
 
             return await httpResponseMessage.Content.ReadAsStringAsync();
         }
-        public async Task<string> Post(Dictionary<string, string> data, string accessToken, bool bearer)
+        public async Task<string> Post(string path, Dictionary<string, string> data, string accessToken, bool bearer)
         {
             HttpClient client = new HttpClient();
 
@@ -64,7 +69,7 @@ namespace wrappify
 
             return await httpResponseMessage.Content.ReadAsStringAsync();
         }
-        public async Task<string> Put(Dictionary<string, string> data)
+        public async Task<string> Put(string path, Dictionary<string, string> data)
         {
             HttpClient client = new HttpClient();
 
@@ -74,7 +79,7 @@ namespace wrappify
 
             return await httpResponseMessage.Content.ReadAsStringAsync();
         }
-        public async Task<string> Put(Dictionary<string, string> data, string accessToken, bool bearer)
+        public async Task<string> Put(string path, Dictionary<string, string> data, string accessToken, bool bearer)
         {
             HttpClient client = new HttpClient();
 
@@ -86,7 +91,7 @@ namespace wrappify
 
             return await httpResponseMessage.Content.ReadAsStringAsync();
         }
-        public async Task<string> Delete(string accessToken, bool bearer)
+        public async Task<string> Delete(string path, string accessToken, bool bearer)
         {
             HttpClient client = new HttpClient();
 
@@ -95,7 +100,7 @@ namespace wrappify
             HttpResponseMessage httpResponseMessage = await client.DeleteAsync(Url);
             return await httpResponseMessage.Content.ReadAsStringAsync();
         }
-        public async Task<string> Delete(string data, string accessToken, bool bearer)
+        public async Task<string> Delete(string path, string data, string accessToken, bool bearer)
         {
             HttpClient client = new HttpClient();
 
@@ -107,11 +112,11 @@ namespace wrappify
 
             return await httpResponseMessage.Content.ReadAsStringAsync();
         }
-        private AuthenticationHeaderValue GetAuthenticationHeaderValue(string accessToken, bool bearer)
+        private AuthenticationHeaderValue GetAuthenticationHeaderValue(string path, string accessToken, bool bearer)
         {
             return bearer ? new AuthenticationHeaderValue("Bearer", accessToken) : new AuthenticationHeaderValue(accessToken);
         }
-        private void SetAccessToken(HttpClient client, string accessToken, bool bearer)
+        private void SetAccessToken(string path, HttpClient client, string accessToken, bool bearer)
         {
             client.DefaultRequestHeaders.Authorization = GetAuthenticationHeaderValue(accessToken, bearer);
         }
