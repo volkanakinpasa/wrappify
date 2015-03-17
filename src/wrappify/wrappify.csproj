@@ -50,9 +50,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helper.cs" />
     <Compile Include="Interfaces\IRequestConfiguration.cs" />
-    <Compile Include="Interfaces\ISpotify.cs" />
-    <Compile Include="Interfaces\IWebApiRequest.cs" />
+    <Compile Include="Interfaces\ISpotifyClient.cs" />
+    <Compile Include="Interfaces\IRequestOperation.cs" />
     <Compile Include="Models\AccessTokenModel.cs" />
     <Compile Include="Models\Album.cs" />
     <Compile Include="Models\Artist.cs" />
@@ -76,13 +77,8 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestConfiguration.cs" />
-    <Compile Include="Spotify.cs" />
-    <Compile Include="SpotifyAlbum.cs" />
-    <Compile Include="SpotifyPlaylist.cs" />
-    <Compile Include="SpotifyToken.cs" />
-    <Compile Include="SpotifyTrack.cs" />
-    <Compile Include="SpotifyUser.cs" />
-    <Compile Include="RequestManager.cs" />
+    <Compile Include="SpotifyClient.cs" />
+    <Compile Include="RequestOperation.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

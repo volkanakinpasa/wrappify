@@ -7,57 +7,47 @@ using wrappify.Interfaces;
 
 namespace wrappify
 {
-    public class RequestManager : IRequestManager
+    public class RequestOperation : IRequestOperation
     {
-        private readonly IRequestConfiguration _requestConfiguration;
-        public string Url { get; set; }
-        public RequestManager(IRequestConfiguration requestConfiguration)
+        public async Task<string> Get(string url)
         {
-            _requestConfiguration = requestConfiguration;
-            
-        }
-
-        public async Task<string> Get(string path)
-        {
-            Url = string.Format("{0}://{1}:{2}/{3}", _requestConfiguration.Scheme, _requestConfiguration.Host, _requestConfiguration.Port);
-
             HttpClient client = new HttpClient();
 
-            HttpResponseMessage httpResponseMessage = await client.GetAsync(Url);
+            HttpResponseMessage httpResponseMessage = await client.GetAsync(url);
 
             return await httpResponseMessage.Content.ReadAsStringAsync();
         }
-        public async Task<string> Get(string path, string accessToken, bool bearer)
+        public async Task<string> Get(string url, string accessToken, bool bearer)
         {
             HttpClient client = new HttpClient();
 
             SetAccessToken(client, accessToken, bearer);
 
-            HttpResponseMessage httpResponseMessage = await client.GetAsync(Url);
+            HttpResponseMessage httpResponseMessage = await client.GetAsync(url);
 
             return await httpResponseMessage.Content.ReadAsStringAsync();
         }
-        public async Task<string> Post(string path, Dictionary<string, string> data)
+        public async Task<string> Post(string url, Dictionary<string, string> data)
         {
             HttpClient client = new HttpClient();
 
             HttpContent httpContent = new FormUrlEncodedContent(data.ToArray());
 
-            HttpResponseMessage httpResponseMessage = await client.PostAsync(Url, httpContent);
+            HttpResponseMessage httpResponseMessage = await client.PostAsync(url, httpContent);
 
             return await httpResponseMessage.Content.ReadAsStringAsync();
         }
-        public async Task<string> Post(string path, string data, string accessToken, bool bearer)
+        public async Task<string> Post(string url, string data, string accessToken, bool bearer)
         {
             HttpClient client = new HttpClient();
 
             SetAccessToken(client, accessToken, bearer);
 
-            HttpResponseMessage httpResponseMessage = await client.PostAsync(Url, new StringContent(data));
+            HttpResponseMessage httpResponseMessage = await client.PostAsync(url, new StringContent(data));
 
             return await httpResponseMessage.Content.ReadAsStringAsync();
         }
-        public async Task<string> Post(string path, Dictionary<string, string> data, string accessToken, bool bearer)
+        public async Task<string> Post(string url, Dictionary<string, string> data, string accessToken, bool bearer)
         {
             HttpClient client = new HttpClient();
 
@@ -65,21 +55,21 @@ namespace wrappify
 
             FormUrlEncodedContent formUrlEncodedContent = new FormUrlEncodedContent(data.ToArray());
 
-            HttpResponseMessage httpResponseMessage = await client.PostAsync(Url, formUrlEncodedContent);
+            HttpResponseMessage httpResponseMessage = await client.PostAsync(url, formUrlEncodedContent);
 
             return await httpResponseMessage.Content.ReadAsStringAsync();
         }
-        public async Task<string> Put(string path, Dictionary<string, string> data)
+        public async Task<string> Put(string url, Dictionary<string, string> data)
         {
             HttpClient client = new HttpClient();
 
             HttpContent httpContent = new FormUrlEncodedContent(data.ToArray());
 
-            HttpResponseMessage httpResponseMessage = await client.PutAsync(Url, httpContent);
+            HttpResponseMessage httpResponseMessage = await client.PutAsync(url, httpContent);
 
             return await httpResponseMessage.Content.ReadAsStringAsync();
         }
-        public async Task<string> Put(string path, Dictionary<string, string> data, string accessToken, bool bearer)
+        public async Task<string> Put(string url, Dictionary<string, string> data, string accessToken, bool bearer)
         {
             HttpClient client = new HttpClient();
 
@@ -87,36 +77,38 @@ namespace wrappify
 
             FormUrlEncodedContent formUrlEncodedContent = new FormUrlEncodedContent(data.ToArray());
 
-            HttpResponseMessage httpResponseMessage = await client.PutAsync(Url, formUrlEncodedContent);
+
+            HttpResponseMessage httpResponseMessage = await client.PutAsync(url, formUrlEncodedContent);
 
             return await httpResponseMessage.Content.ReadAsStringAsync();
         }
-        public async Task<string> Delete(string path, string accessToken, bool bearer)
+        public async Task<string> Delete(string url, string accessToken, bool bearer)
         {
             HttpClient client = new HttpClient();
 
             SetAccessToken(client, accessToken, bearer);
 
-            HttpResponseMessage httpResponseMessage = await client.DeleteAsync(Url);
+            HttpResponseMessage httpResponseMessage = await client.DeleteAsync(url);
+
             return await httpResponseMessage.Content.ReadAsStringAsync();
         }
-        public async Task<string> Delete(string path, string data, string accessToken, bool bearer)
+        public async Task<string> Delete(string url, string data, string accessToken, bool bearer)
         {
             HttpClient client = new HttpClient();
 
             SetAccessToken(client, accessToken, bearer);
 
-            HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Delete, Url) { Content = new StringContent(data) };
+            HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Delete, url) { Content = new StringContent(data) };
 
             HttpResponseMessage httpResponseMessage = await client.SendAsync(message);
 
             return await httpResponseMessage.Content.ReadAsStringAsync();
         }
-        private AuthenticationHeaderValue GetAuthenticationHeaderValue(string path, string accessToken, bool bearer)
+        private AuthenticationHeaderValue GetAuthenticationHeaderValue(string accessToken, bool bearer)
         {
             return bearer ? new AuthenticationHeaderValue("Bearer", accessToken) : new AuthenticationHeaderValue(accessToken);
         }
-        private void SetAccessToken(string path, HttpClient client, string accessToken, bool bearer)
+        private void SetAccessToken(HttpClient client, string accessToken, bool bearer)
         {
             client.DefaultRequestHeaders.Authorization = GetAuthenticationHeaderValue(accessToken, bearer);
         }

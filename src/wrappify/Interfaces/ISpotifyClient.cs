@@ -4,9 +4,8 @@ using wrappify.Models;
 
 namespace wrappify.Interfaces
 {
-    public interface ISpotify
+    public interface ISpotifyClient
     {
-        //string Path { get; set; }
         Task<Album> GetAnAlbum(string id);
         Task<AlbumModel> GetSeveralAlbums(string ids);
         Task<Paging<TrackSimplified>> GetAnAlbumsTracks(string id, int limit = 0, int offset = 0);
