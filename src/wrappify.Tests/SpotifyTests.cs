@@ -48,7 +48,7 @@ namespace wrappify.Tests
 
             HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent(serializedAlbum) };
 
-            _requestManagerMock.Setup(manager => manager.Get(It.IsAny<string>())).Returns(Task.FromResult(message)).Verifiable();
+            _requestManagerMock.Setup(manager => manager.GetAsync(It.IsAny<string>())).Returns(Task.FromResult(message)).Verifiable();
 
             Album result = await _spotifyClient.GetAnAlbum("07DseFAuj1KMp807W9XZVl");
 
@@ -66,7 +66,7 @@ namespace wrappify.Tests
 
             HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent(serializedAlbum) };
 
-            _requestManagerMock.Setup(manager => manager.Get(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>())).Returns(Task.FromResult(message)).Verifiable();
+            _requestManagerMock.Setup(manager => manager.GetAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>())).Returns(Task.FromResult(message)).Verifiable();
 
             _spotifyClient.SetAccessToken(_fixture.Create<string>("token"));
 
@@ -89,7 +89,7 @@ namespace wrappify.Tests
 
             HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent(serialized) };
 
-            _requestManagerMock.Setup(manager => manager.Get(It.IsAny<string>())).Returns(Task.FromResult(message)).Verifiable();
+            _requestManagerMock.Setup(manager => manager.GetAsync(It.IsAny<string>())).Returns(Task.FromResult(message)).Verifiable();
 
             Paging<TrackSimplified> result = await _spotifyClient.GetAnAlbumsTracks("07DseFAuj1KMp807W9XZVl");
 
@@ -116,7 +116,7 @@ namespace wrappify.Tests
 
             HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent(serialized) };
 
-            _requestManagerMock.Setup(manager => manager.Post(It.IsAny<string>(), It.IsAny<Dictionary<string, string>>())).Returns(Task.FromResult(message)).Verifiable();
+            _requestManagerMock.Setup(manager => manager.PostAsync(It.IsAny<string>(), It.IsAny<Dictionary<string, string>>())).Returns(Task.FromResult(message)).Verifiable();
 
             AccessTokenModel accesstoken = await _spotifyClient.GetAccessToken(code, redirect_uri, client_secret, client_id);
 

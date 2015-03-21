@@ -6,14 +6,14 @@ namespace wrappify.Interfaces
 {
     public interface IRequestManager
     {
-        Task<HttpResponseMessage> Get(string url);
-        Task<HttpResponseMessage> Get(string url, string accessToken, bool bearer);
-        Task<HttpResponseMessage> Post(string url, Dictionary<string, string> data);
-        Task<HttpResponseMessage> Post(string url, string data, string accessToken, bool bearer);
-        Task<HttpResponseMessage> Post(string url, Dictionary<string, string> data, string accessToken, bool bearer);
-        Task<HttpResponseMessage> Put(string url, Dictionary<string, string> data);
-        Task<HttpResponseMessage> Put(string url, Dictionary<string, string> data, string accessToken, bool bearer);
-        Task<HttpResponseMessage> Delete(string url, string accessToken, bool bearer);
-        Task<HttpResponseMessage> Delete(string url, string data, string accessToken, bool bearer);
+        Task<HttpResponseMessage> GetAsync(string url);
+        Task<HttpResponseMessage> GetAsync(string url, string accessToken, bool bearer);
+        Task<HttpResponseMessage> PostAsync(string url, Dictionary<string, string> data);
+        Task<HttpResponseMessage> PostAsync(string url, string data, string accessToken, bool bearer);
+        Task<HttpResponseMessage> PostAsync(string url, Dictionary<string, string> data, string accessToken, bool bearer);
+        Task<HttpResponseMessage> PutAsync(string url, Dictionary<string, string> data);
+        Task<HttpResponseMessage> PutAsync(string url, Dictionary<string, string> data, string accessToken, bool bearer);
+        Task<HttpResponseMessage> DeleteAsync(string url, string accessToken, bool bearer);
+        Task<HttpResponseMessage> DeleteAsync(string url, string data, string accessToken, bool bearer);
     }
 }

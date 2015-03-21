@@ -9,11 +9,11 @@ namespace wrappify
 {
     public class RequestManager : IRequestManager
     {
-        public async Task<HttpResponseMessage> Get(string url)
+        public async Task<HttpResponseMessage> GetAsync(string url)
         {
             return await new HttpClient().GetAsync(url);
         }
-        public async Task<HttpResponseMessage> Get(string url, string accessToken, bool bearer)
+        public async Task<HttpResponseMessage> GetAsync(string url, string accessToken, bool bearer)
         {
             HttpClient client = new HttpClient();
 
@@ -21,7 +21,7 @@ namespace wrappify
 
             return await client.GetAsync(url);
         }
-        public async Task<HttpResponseMessage> Post(string url, Dictionary<string, string> data)
+        public async Task<HttpResponseMessage> PostAsync(string url, Dictionary<string, string> data)
         {
             HttpClient client = new HttpClient();
 
@@ -29,7 +29,7 @@ namespace wrappify
 
             return await client.PostAsync(url, httpContent);
         }
-        public async Task<HttpResponseMessage> Post(string url, string data, string accessToken, bool bearer)
+        public async Task<HttpResponseMessage> PostAsync(string url, string data, string accessToken, bool bearer)
         {
             HttpClient client = new HttpClient();
 
@@ -37,7 +37,7 @@ namespace wrappify
 
             return await client.PostAsync(url, new StringContent(data));
         }
-        public async Task<HttpResponseMessage> Post(string url, Dictionary<string, string> data, string accessToken, bool bearer)
+        public async Task<HttpResponseMessage> PostAsync(string url, Dictionary<string, string> data, string accessToken, bool bearer)
         {
             HttpClient client = new HttpClient();
 
@@ -47,7 +47,7 @@ namespace wrappify
 
             return await client.PostAsync(url, formUrlEncodedContent);
         }
-        public async Task<HttpResponseMessage> Put(string url, Dictionary<string, string> data)
+        public async Task<HttpResponseMessage> PutAsync(string url, Dictionary<string, string> data)
         {
             HttpClient client = new HttpClient();
 
@@ -55,7 +55,7 @@ namespace wrappify
 
             return await client.PutAsync(url, httpContent);
         }
-        public async Task<HttpResponseMessage> Put(string url, Dictionary<string, string> data, string accessToken, bool bearer)
+        public async Task<HttpResponseMessage> PutAsync(string url, Dictionary<string, string> data, string accessToken, bool bearer)
         {
             HttpClient client = new HttpClient();
 
@@ -65,7 +65,7 @@ namespace wrappify
 
             return await client.PutAsync(url, formUrlEncodedContent);
         }
-        public async Task<HttpResponseMessage> Delete(string url, string accessToken, bool bearer)
+        public async Task<HttpResponseMessage> DeleteAsync(string url, string accessToken, bool bearer)
         {
             HttpClient client = new HttpClient();
 
@@ -73,7 +73,7 @@ namespace wrappify
 
             return await client.DeleteAsync(url);
         }
-        public async Task<HttpResponseMessage> Delete(string url, string data, string accessToken, bool bearer)
+        public async Task<HttpResponseMessage> DeleteAsync(string url, string data, string accessToken, bool bearer)
         {
             HttpClient client = new HttpClient();
 

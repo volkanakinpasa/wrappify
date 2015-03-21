@@ -44,7 +44,7 @@ namespace wrappify
 
                 string url = Helper.BuildUrl(_requestConfiguration, path);
 
-                HttpResponseMessage message = await _requestOperation.Get(url);
+                HttpResponseMessage message = await _requestOperation.GetAsync(url);
 
                 string responseJson = await message.Content.ReadAsStringAsync();
 
@@ -67,7 +67,7 @@ namespace wrappify
 
                 string url = Helper.BuildUrl(_requestConfiguration, path);
 
-                HttpResponseMessage message = await _requestOperation.Get(url);
+                HttpResponseMessage message = await _requestOperation.GetAsync(url);
 
                 string responseJson = await message.Content.ReadAsStringAsync();
 
@@ -90,7 +90,7 @@ namespace wrappify
 
                 string url = Helper.BuildUrl(_requestConfiguration, path);
 
-                HttpResponseMessage message = await _requestOperation.Get(url);
+                HttpResponseMessage message = await _requestOperation.GetAsync(url);
 
                 string responseJson = await message.Content.ReadAsStringAsync();
 
@@ -114,7 +114,7 @@ namespace wrappify
 
                 string url = Helper.BuildUrl(_requestConfiguration, path);
 
-                HttpResponseMessage message = await _requestOperation.Get(url, AccessToken, true);
+                HttpResponseMessage message = await _requestOperation.GetAsync(url, AccessToken, true);
 
                 string responseJson = await message.Content.ReadAsStringAsync();
 
@@ -138,7 +138,7 @@ namespace wrappify
 
                 string url = Helper.BuildUrl(_requestConfiguration, path);
 
-                HttpResponseMessage message = await _requestOperation.Get(url, AccessToken, true);
+                HttpResponseMessage message = await _requestOperation.GetAsync(url, AccessToken, true);
 
                 string responseJson = await message.Content.ReadAsStringAsync();
 
@@ -161,7 +161,7 @@ namespace wrappify
 
                 string url = Helper.BuildUrl(_requestConfiguration, path);
 
-                HttpResponseMessage message = await _requestOperation.Get(url, AccessToken, true);
+                HttpResponseMessage message = await _requestOperation.GetAsync(url, AccessToken, true);
 
                 string responseJson = await message.Content.ReadAsStringAsync();
 
@@ -188,7 +188,7 @@ namespace wrappify
 
                 string serializedata = JsonConvert.SerializeObject(dictionary, Formatting.Indented);
 
-                HttpResponseMessage message = await _requestOperation.Post(url, serializedata, AccessToken, true);
+                HttpResponseMessage message = await _requestOperation.PostAsync(url, serializedata, AccessToken, true);
                 string responseJson = await message.Content.ReadAsStringAsync();
 
                 HandleIfAndError(message, responseJson);
@@ -214,7 +214,7 @@ namespace wrappify
 
                 string serializedata = JsonConvert.SerializeObject(dictionary, Formatting.Indented);
 
-                HttpResponseMessage message = await _requestOperation.Post(url, serializedata, AccessToken, true);
+                HttpResponseMessage message = await _requestOperation.PostAsync(url, serializedata, AccessToken, true);
 
                 string responseJson = await message.Content.ReadAsStringAsync();
 
@@ -245,7 +245,7 @@ namespace wrappify
 
                 string serializedata = JsonConvert.SerializeObject(arr, Formatting.Indented);
 
-                HttpResponseMessage message = await _requestOperation.Delete(url, serializedata, AccessToken, true);
+                HttpResponseMessage message = await _requestOperation.DeleteAsync(url, serializedata, AccessToken, true);
 
                 string responseJson = await message.Content.ReadAsStringAsync();
 
@@ -268,7 +268,7 @@ namespace wrappify
 
                 string url = Helper.BuildUrl(_requestConfiguration, path);
 
-                HttpResponseMessage message = await _requestOperation.Get(url);
+                HttpResponseMessage message = await _requestOperation.GetAsync(url);
                 string responseJson = await message.Content.ReadAsStringAsync();
                 HandleIfAndError(message, responseJson);
 
@@ -289,7 +289,7 @@ namespace wrappify
 
                 string url = Helper.BuildUrl(_requestConfiguration, path);
 
-                HttpResponseMessage message = await _requestOperation.Get(url);
+                HttpResponseMessage message = await _requestOperation.GetAsync(url);
 
                 string responseJson = await message.Content.ReadAsStringAsync();
 
@@ -312,7 +312,7 @@ namespace wrappify
 
                 string url = Helper.BuildUrl(_requestConfiguration, path);
 
-                HttpResponseMessage message = await _requestOperation.Get(url, AccessToken, false);
+                HttpResponseMessage message = await _requestOperation.GetAsync(url, AccessToken, false);
 
                 string responseJson = await message.Content.ReadAsStringAsync();
 
@@ -335,7 +335,7 @@ namespace wrappify
 
                 string url = Helper.BuildUrl(_requestConfiguration, path);
 
-                HttpResponseMessage message = await _requestOperation.Get(url, AccessToken, true);
+                HttpResponseMessage message = await _requestOperation.GetAsync(url, AccessToken, true);
                 string responseJson = await message.Content.ReadAsStringAsync();
                 HandleIfAndError(message, responseJson);
 
@@ -363,7 +363,7 @@ namespace wrappify
 
                 string url = string.Format("https://accounts.spotify.com/api/token");
 
-                HttpResponseMessage message = await _requestOperation.Post(url, postData);
+                HttpResponseMessage message = await _requestOperation.PostAsync(url, postData);
 
                 string responseJson = await message.Content.ReadAsStringAsync();
 
