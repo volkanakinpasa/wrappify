@@ -122,5 +122,25 @@ namespace wrappify.Tests
 
             accesstoken.AccessToken.Should().Be(fakeModel.AccessToken);
         }
+
+        [TestMethod]
+        [Ignore]
+        public async Task GetAnAlbumTest_Wit_hHttwrap_Strategy()
+        {
+            RequestConfiguration requestConfiguration = new RequestConfiguration(Host,Port,Scheme);
+            RequestStrategy requestStrategy = new RequestHttwrap(requestConfiguration);
+            ISpotifyClient client = new SpotifyClient(requestStrategy);
+            Album anAlbum = await client.GetAnAlbum("07DseFAuj1KMp807W9XZVl");
+        }
+
+        [TestMethod]
+        [Ignore]
+        public async Task GetAnAlbumTest_Wit_wrapper_Strategy()
+        {
+            RequestConfiguration requestConfiguration = new RequestConfiguration(Host, Port, Scheme);
+            RequestStrategy requestStrategy = new RequestWrapper(requestConfiguration);
+            ISpotifyClient client = new SpotifyClient(requestStrategy);
+            Album anAlbum = await client.GetAnAlbum("07DseFAuj1KMp807W9XZVl");
+        }
     }
 }

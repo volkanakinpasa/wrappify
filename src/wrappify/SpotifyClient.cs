@@ -12,6 +12,7 @@ namespace wrappify
 {
     public class SpotifyClient : ISpotifyClient
     {
+        private readonly RequestStrategy _requestStrategy;
         private readonly IRequestConfiguration _requestConfiguration;
         private readonly IRequestManager _requestOperation;
         private const string _host = "api.spotify.com";
@@ -36,23 +37,20 @@ namespace wrappify
             _requestOperation = requestOperation;
         }
 
+        public SpotifyClient(RequestStrategy requestStrategy)
+        {
+            _requestStrategy = requestStrategy;
+        }
+
         public async Task<Album> GetAnAlbum(string id)
         {
             try
             {
                 string path = string.Format("v1/albums/{0}", id);
 
-                string url = Helper.BuildUrl(_requestConfiguration, path);
-
-                HttpResponseMessage message = await _requestOperation.GetAsync(url);
-
-                string responseJson = await message.Content.ReadAsStringAsync();
-
-                HandleIfAndError(message, responseJson);
-
-                SpotifyResponse spotifyResponse = new SpotifyResponse(responseJson, message.StatusCode);
-
-                return spotifyResponse.Result<Album>();
+                SpotifyResponse response = await _requestStrategy.GetAsync(path);
+                
+                return response.Result<Album>();
             }
             catch (HttpRequestException ex)
             {
