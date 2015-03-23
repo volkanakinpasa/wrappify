@@ -1,15 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Newtonsoft.Json;
 using Ploeh.AutoFixture;
+using wrappify.HttpWrapper;
 using wrappify.Interfaces;
 using wrappify.Models;
+using wrappify.Responses;
 
 namespace wrappify.Tests
 {
@@ -22,17 +23,17 @@ namespace wrappify.Tests
 
         private ISpotifyClient _spotifyClient;
         private Fixture _fixture;
-        private Mock<IRequestManager> _requestManagerMock;
-        private Mock<IRequestConfiguration> _requestConfigurationMock;
+        private Mock<IHttpWrapperStrategy> _httpWrapStrategyMock;
 
 
 
         [TestInitialize]
         public void Init()
         {
-            _requestManagerMock = new Mock<IRequestManager>();
-            _requestConfigurationMock = new Mock<IRequestConfiguration>();
-            _spotifyClient = new SpotifyClient(_requestConfigurationMock.Object, _requestManagerMock.Object);
+            _httpWrapStrategyMock = new Mock<IHttpWrapperStrategy>();
+
+            _spotifyClient = new SpotifyClient(_httpWrapStrategyMock.Object);
+
             _fixture = new Fixture();
         }
 
@@ -46,15 +47,15 @@ namespace wrappify.Tests
 
             string serializedAlbum = JsonConvert.SerializeObject(fakeModel);
 
-            HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent(serializedAlbum) };
+            SpotifyResponse response = new SpotifyResponse(serializedAlbum, HttpStatusCode.OK);
 
-            _requestManagerMock.Setup(manager => manager.GetAsync(It.IsAny<string>())).Returns(Task.FromResult(message)).Verifiable();
+            _httpWrapStrategyMock.Setup(manager => manager.GetAsync(It.IsAny<string>())).Returns(Task.FromResult(response)).Verifiable();
 
             Album result = await _spotifyClient.GetAnAlbum("07DseFAuj1KMp807W9XZVl");
 
             result.Id.Should().Be(fakeModel.Id);
 
-            _requestManagerMock.VerifyAll();
+            _httpWrapStrategyMock.VerifyAll();
         }
 
         [TestMethod]
@@ -64,9 +65,9 @@ namespace wrappify.Tests
 
             string serializedAlbum = JsonConvert.SerializeObject(fakeModel);
 
-            HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent(serializedAlbum) };
+            SpotifyResponse response = new SpotifyResponse(serializedAlbum, HttpStatusCode.OK);
 
-            _requestManagerMock.Setup(manager => manager.GetAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>())).Returns(Task.FromResult(message)).Verifiable();
+            _httpWrapStrategyMock.Setup(manager => manager.GetAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>())).Returns(Task.FromResult(response)).Verifiable();
 
             _spotifyClient.SetAccessToken(_fixture.Create<string>("token"));
 
@@ -76,7 +77,7 @@ namespace wrappify.Tests
 
             result.Id.Should().Be(fakeModel.Id);
 
-            _requestManagerMock.VerifyAll();
+            _httpWrapStrategyMock.VerifyAll();
         }
 
         [TestMethod]
@@ -87,9 +88,9 @@ namespace wrappify.Tests
                 .Create();
             string serialized = JsonConvert.SerializeObject(fakeModel);
 
-            HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent(serialized) };
+            SpotifyResponse response = new SpotifyResponse(serialized, HttpStatusCode.OK);
 
-            _requestManagerMock.Setup(manager => manager.GetAsync(It.IsAny<string>())).Returns(Task.FromResult(message)).Verifiable();
+            _httpWrapStrategyMock.Setup(manager => manager.GetAsync(It.IsAny<string>())).Returns(Task.FromResult(response)).Verifiable();
 
             Paging<TrackSimplified> result = await _spotifyClient.GetAnAlbumsTracks("07DseFAuj1KMp807W9XZVl");
 
@@ -114,9 +115,9 @@ namespace wrappify.Tests
 
             string serialized = JsonConvert.SerializeObject(fakeModel);
 
-            HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent(serialized) };
+            SpotifyResponse response = new SpotifyResponse(serialized, HttpStatusCode.OK);
 
-            _requestManagerMock.Setup(manager => manager.PostAsync(It.IsAny<string>(), It.IsAny<Dictionary<string, string>>())).Returns(Task.FromResult(message)).Verifiable();
+            _httpWrapStrategyMock.Setup(manager => manager.PostAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<Dictionary<string, string>>())).Returns(Task.FromResult(response)).Verifiable();
 
             AccessTokenModel accesstoken = await _spotifyClient.GetAccessToken(code, redirect_uri, client_secret, client_id);
 
@@ -127,9 +128,9 @@ namespace wrappify.Tests
         [Ignore]
         public async Task GetAnAlbumTest_Wit_hHttwrap_Strategy()
         {
-            RequestConfiguration requestConfiguration = new RequestConfiguration(Host,Port,Scheme);
-            RequestStrategy requestStrategy = new RequestHttwrap(requestConfiguration);
-            ISpotifyClient client = new SpotifyClient(requestStrategy);
+            RequestConfiguration requestConfiguration = new RequestConfiguration(Host, Port, Scheme);
+            IHttpWrapperStrategy httpWrapperStrategy = new HttWrapStrategy(requestConfiguration);
+            ISpotifyClient client = new SpotifyClient(httpWrapperStrategy);
             Album anAlbum = await client.GetAnAlbum("07DseFAuj1KMp807W9XZVl");
         }
 
@@ -138,8 +139,8 @@ namespace wrappify.Tests
         public async Task GetAnAlbumTest_Wit_wrapper_Strategy()
         {
             RequestConfiguration requestConfiguration = new RequestConfiguration(Host, Port, Scheme);
-            RequestStrategy requestStrategy = new RequestWrapper(requestConfiguration);
-            ISpotifyClient client = new SpotifyClient(requestStrategy);
+            IHttpWrapperStrategy httpWrapperStrategy = new WrapperStrategy(requestConfiguration);
+            ISpotifyClient client = new SpotifyClient(httpWrapperStrategy);
             Album anAlbum = await client.GetAnAlbum("07DseFAuj1KMp807W9XZVl");
         }
     }
