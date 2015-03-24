@@ -96,7 +96,6 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestConfiguration.cs" />
-    <Compile Include="Wrappers\HttWrapWrapper.cs" />
     <Compile Include="Wrappers\IHttpWrapper.cs" />
     <Compile Include="Wrappers\HttpWrapper.cs" />
     <Compile Include="SpotifyClient.cs" />

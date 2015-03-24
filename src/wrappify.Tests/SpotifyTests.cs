@@ -123,7 +123,7 @@ namespace wrappify.Tests
         }
 
         [TestMethod]
-        //[Ignore]
+        [Ignore]
         public async Task GetAnAlbumTest_Wit_wrapper_Strategy()
         {
             RequestConfiguration requestConfiguration = new RequestConfiguration(Host, Port, Scheme);

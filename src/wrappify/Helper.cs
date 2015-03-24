@@ -2,7 +2,7 @@
 
 namespace wrappify
 {
-    public class Helper
+    internal class Helper
     {
         public static string BuildUrl(IRequestConfiguration _requestConfiguration)
         {

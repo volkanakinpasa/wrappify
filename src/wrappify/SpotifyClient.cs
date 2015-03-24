@@ -15,6 +15,11 @@ namespace wrappify
         private readonly IHttpWrapper _httpWrapper;
         private string AccessToken { get; set; }
 
+        public SpotifyClient()
+            : this(new HttpWrapper())
+        {
+
+        }
         public SpotifyClient(IHttpWrapper httpWrapper)
         {
             _httpWrapper = httpWrapper;

@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using wrappify.Interfaces;
 using wrappify.Responses;
 
 namespace wrappify.Wrappers
@@ -12,7 +13,15 @@ namespace wrappify.Wrappers
     {
         private readonly string _baseUrl;
 
-        public HttpWrapper(RequestConfiguration requestConfiguration)
+        private const string Host = "api.spotify.com";
+        private const string Port = "443";
+        private const string Scheme = "https";
+        public HttpWrapper()
+            : this(new RequestConfiguration(Host, Port, Scheme))
+        {
+
+        }
+        public HttpWrapper(IRequestConfiguration requestConfiguration)
         {
             _baseUrl = Helper.BuildUrl(requestConfiguration);
         }
@@ -20,13 +29,13 @@ namespace wrappify.Wrappers
         public async Task<SpotifyResponse> GetAsync(string path)
         {
             string url = string.Format("{0}{1}", _baseUrl, path);
-           
+
             HttpClient client = new HttpClient();
 
             HttpResponseMessage message = await client.GetAsync(url);
 
             string responseJson = await message.Content.ReadAsStringAsync();
-            
+
             HandleIfAndError(message, responseJson);
 
             SpotifyResponse spotifyResponse = new SpotifyResponse(responseJson, message.StatusCode);
@@ -194,7 +203,7 @@ namespace wrappify.Wrappers
             string url = string.Format("{0}{1}", _baseUrl, path);
 
             HttpClient client = new HttpClient();
-            
+
             SetAccessToken(client, accessToken, bearer);
 
             HttpRequestMessage requestMessage = new HttpRequestMessage(HttpMethod.Delete, url) { Content = new StringContent(data) };
