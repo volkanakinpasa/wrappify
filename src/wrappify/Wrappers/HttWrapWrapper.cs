@@ -1,17 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Httwrap;
-using Httwrap.Auth;
 using wrappify.Responses;
 
-namespace wrappify.HttpWrapper
+namespace wrappify.Wrappers
 {
-    public class HttWrapStrategy : IHttpWrapperStrategy
+    public class HttWrapWrapper : IHttpWrapper
     {
         private readonly string _baseUrl;
 
-        public HttWrapStrategy(RequestConfiguration requestConfiguration)
+        public HttWrapWrapper(RequestConfiguration requestConfiguration)
         {
             _baseUrl = Helper.BuildUrl(requestConfiguration);
         }

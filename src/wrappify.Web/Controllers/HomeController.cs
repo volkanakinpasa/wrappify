@@ -10,7 +10,9 @@ namespace wrappify.Web.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            HomePageModel model = new HomePageModel();
+
+            return View(model);
         }
 
         public ActionResult About()
@@ -26,5 +28,15 @@ namespace wrappify.Web.Controllers
 
             return View();
         }
+    }
+
+    public class HomePageModel
+    {
+        public Token Token { get; set; }
+    }
+
+    public class Token
+    {
+        public  Type { get; set; }
     }
 }

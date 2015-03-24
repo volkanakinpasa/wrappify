@@ -3,21 +3,21 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using wrappify.HttpWrapper;
 using wrappify.Interfaces;
 using wrappify.Models;
 using wrappify.Responses;
+using wrappify.Wrappers;
 
 namespace wrappify
 {
     public class SpotifyClient : ISpotifyClient
     {
-        private readonly IHttpWrapperStrategy _httpWrapperStrategy;
+        private readonly IHttpWrapper _httpWrapper;
         private string AccessToken { get; set; }
 
-        public SpotifyClient(IHttpWrapperStrategy httpWrapperStrategy)
+        public SpotifyClient(IHttpWrapper httpWrapper)
         {
-            _httpWrapperStrategy = httpWrapperStrategy;
+            _httpWrapper = httpWrapper;
         }
 
         public async Task<Album> GetAnAlbum(string id)
@@ -26,7 +26,7 @@ namespace wrappify
             {
                 string path = string.Format("v1/albums/{0}", id);
 
-                SpotifyResponse response = await _httpWrapperStrategy.GetAsync(path);
+                SpotifyResponse response = await _httpWrapper.GetAsync(path);
 
                 return response.Result<Album>();
             }
@@ -41,7 +41,7 @@ namespace wrappify
             {
                 string path = string.Format("v1/albums?ids={0}", ids);
 
-                SpotifyResponse response = await _httpWrapperStrategy.GetAsync(path);
+                SpotifyResponse response = await _httpWrapper.GetAsync(path);
 
                 return response.Result<AlbumModel>();
             }
@@ -56,7 +56,7 @@ namespace wrappify
             {
                 string path = string.Format("v1/albums/{0}/tracks?limit={1}&offset={2}", id, limit == 0 ? 20 : 0, offset);
 
-                SpotifyResponse response = await _httpWrapperStrategy.GetAsync(path);
+                SpotifyResponse response = await _httpWrapper.GetAsync(path);
 
                 return response.Result<Paging<TrackSimplified>>();
             }
@@ -72,7 +72,7 @@ namespace wrappify
             {
                 string path = string.Format("v1/users/{0}/playlists?limit={1}&offset={2}", userId, limit, offset);
 
-                SpotifyResponse response = await _httpWrapperStrategy.GetAsync(path, AccessToken, true);
+                SpotifyResponse response = await _httpWrapper.GetAsync(path, AccessToken, true);
 
                 return response.Result<Paging<Playlist>>();
             }
@@ -88,7 +88,7 @@ namespace wrappify
             {
                 string path = string.Format("v1/users/{0}/playlists/{1}?fields={2}", userId, playlistId, fields ?? "");
 
-                SpotifyResponse response = await _httpWrapperStrategy.GetAsync(path, AccessToken, true);
+                SpotifyResponse response = await _httpWrapper.GetAsync(path, AccessToken, true);
 
                 return response.Result<Playlist>();
             }
@@ -103,7 +103,7 @@ namespace wrappify
             {
                 string path = string.Format("v1/users/{0}/playlists/{1}/tracks?fields={2}", userId, playlistId, fields ?? "");
 
-                SpotifyResponse response = await _httpWrapperStrategy.GetAsync(path, AccessToken, true);
+                SpotifyResponse response = await _httpWrapper.GetAsync(path, AccessToken, true);
 
                 return response.Result<Paging<playlisttrack>>();
             }
@@ -122,7 +122,7 @@ namespace wrappify
 
                 string serializedata = JsonConvert.SerializeObject(dictionary, Formatting.Indented);
 
-                SpotifyResponse response = await _httpWrapperStrategy.PostAsync(path, serializedata, AccessToken, true);
+                SpotifyResponse response = await _httpWrapper.PostAsync(path, serializedata, AccessToken, true);
 
                 return response.Result<Playlist>();
             }
@@ -141,7 +141,7 @@ namespace wrappify
 
                 string serializedata = JsonConvert.SerializeObject(dictionary, Formatting.Indented);
 
-                SpotifyResponse response = await _httpWrapperStrategy.PostAsync(path, serializedata, AccessToken, true);
+                SpotifyResponse response = await _httpWrapper.PostAsync(path, serializedata, AccessToken, true);
 
                 return response.Result<PostResult>();
             }
@@ -163,7 +163,7 @@ namespace wrappify
 
                 string serializedata = JsonConvert.SerializeObject(arr, Formatting.Indented);
 
-                SpotifyResponse response = await _httpWrapperStrategy.DeleteAsync(path, serializedata, AccessToken, true);
+                SpotifyResponse response = await _httpWrapper.DeleteAsync(path, serializedata, AccessToken, true);
 
                 return response.Result<PostResult>();
             }
@@ -178,7 +178,7 @@ namespace wrappify
             {
                 string path = string.Format("v1/tracks/{0}", trackId);
 
-                SpotifyResponse response = await _httpWrapperStrategy.GetAsync(path);
+                SpotifyResponse response = await _httpWrapper.GetAsync(path);
 
                 return response.Result<Track>();
             }
@@ -193,7 +193,7 @@ namespace wrappify
             {
                 string path = string.Format("v1/tracks?ids={0}", trackIds);
 
-                SpotifyResponse response = await _httpWrapperStrategy.GetAsync(path);
+                SpotifyResponse response = await _httpWrapper.GetAsync(path);
 
                 return response.Result<TrackResult>();
             }
@@ -208,7 +208,7 @@ namespace wrappify
             {
                 const string path = "v1/users";
 
-                SpotifyResponse response = await _httpWrapperStrategy.GetAsync(path, AccessToken, false);
+                SpotifyResponse response = await _httpWrapper.GetAsync(path, AccessToken, false);
 
                 return response.Result<User>();
             }
@@ -223,7 +223,7 @@ namespace wrappify
             {
                 const string path = "v1/me";
 
-                SpotifyResponse response = await _httpWrapperStrategy.GetAsync(path, AccessToken, true);
+                SpotifyResponse response = await _httpWrapper.GetAsync(path, AccessToken, true);
 
                 return response.Result<User>();
             }
@@ -247,7 +247,7 @@ namespace wrappify
 
                 string url = string.Format("https://accounts.spotify.com/");
 
-                SpotifyResponse response = await _httpWrapperStrategy.PostAsync(url, "api/token", data);
+                SpotifyResponse response = await _httpWrapper.PostAsync(url, "api/token", data);
 
                 return response.Result<AccessTokenModel>();
             }

@@ -2,9 +2,9 @@
 using System.Threading.Tasks;
 using wrappify.Responses;
 
-namespace wrappify.HttpWrapper
+namespace wrappify.Wrappers
 {
-    public interface IHttpWrapperStrategy
+    public interface IHttpWrapper
     {
         Task<SpotifyResponse> GetAsync(string path);
         Task<SpotifyResponse> GetAsync(string path, string accessToken, bool bearer);

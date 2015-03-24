@@ -15,8 +15,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{ECB56D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wrappify", "wrappify\wrappify.csproj", "{295B643F-3C04-4782-8DFA-29A3013ED6A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wrappify.Web", "wrappify.Web\wrappify.Web.csproj", "{EE7B3556-9F4D-4FEF-8FD7-AE09F286D4A4}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,10 +29,6 @@ Global
 		{295B643F-3C04-4782-8DFA-29A3013ED6A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{295B643F-3C04-4782-8DFA-29A3013ED6A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{295B643F-3C04-4782-8DFA-29A3013ED6A5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EE7B3556-9F4D-4FEF-8FD7-AE09F286D4A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EE7B3556-9F4D-4FEF-8FD7-AE09F286D4A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EE7B3556-9F4D-4FEF-8FD7-AE09F286D4A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EE7B3556-9F4D-4FEF-8FD7-AE09F286D4A4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

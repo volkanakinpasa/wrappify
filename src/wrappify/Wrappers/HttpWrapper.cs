@@ -6,13 +6,13 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using wrappify.Responses;
 
-namespace wrappify.HttpWrapper
+namespace wrappify.Wrappers
 {
-    public class WrapperStrategy : IHttpWrapperStrategy
+    public class HttpWrapper : IHttpWrapper
     {
         private readonly string _baseUrl;
 
-        public WrapperStrategy(RequestConfiguration requestConfiguration)
+        public HttpWrapper(RequestConfiguration requestConfiguration)
         {
             _baseUrl = Helper.BuildUrl(requestConfiguration);
         }
