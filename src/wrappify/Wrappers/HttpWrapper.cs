@@ -19,7 +19,7 @@ namespace wrappify.Wrappers
 
         public async Task<SpotifyResponse> GetAsync(string path)
         {
-            string url = string.Format("{0}/{1}", _baseUrl, path);
+            string url = string.Format("{0}{1}", _baseUrl, path);
            
             HttpClient client = new HttpClient();
 
@@ -36,7 +36,7 @@ namespace wrappify.Wrappers
 
         public async Task<SpotifyResponse> GetAsync(string path, string accessToken, bool bearer)
         {
-            string url = string.Format("{0}/{1}", _baseUrl, path);
+            string url = string.Format("{0}{1}", _baseUrl, path);
 
             HttpClient client = new HttpClient();
 
@@ -55,7 +55,7 @@ namespace wrappify.Wrappers
 
         public async Task<SpotifyResponse> PostAsync(string path, Dictionary<string, string> data)
         {
-            string url = string.Format("{0}/{1}", _baseUrl, path);
+            string url = string.Format("{0}{1}", _baseUrl, path);
 
             HttpClient client = new HttpClient();
 
@@ -74,7 +74,7 @@ namespace wrappify.Wrappers
 
         public async Task<SpotifyResponse> PostAsync(string baseUrl, string path, Dictionary<string, string> data)
         {
-            string url = string.Format("{0}/{1}", baseUrl, path);
+            string url = string.Format("{0}{1}", baseUrl, path);
 
             HttpClient client = new HttpClient();
 
@@ -94,7 +94,7 @@ namespace wrappify.Wrappers
 
         public async Task<SpotifyResponse> PostAsync(string path, string data, string accessToken, bool bearer)
         {
-            string url = string.Format("{0}/{1}", _baseUrl, path);
+            string url = string.Format("{0}{1}", _baseUrl, path);
 
             HttpClient client = new HttpClient();
 
@@ -113,7 +113,7 @@ namespace wrappify.Wrappers
 
         public async Task<SpotifyResponse> PostAsync(string path, Dictionary<string, string> data, string accessToken, bool bearer)
         {
-            string url = string.Format("{0}/{1}", _baseUrl, path);
+            string url = string.Format("{0}{1}", _baseUrl, path);
 
             HttpClient client = new HttpClient();
 
@@ -134,7 +134,7 @@ namespace wrappify.Wrappers
 
         public async Task<SpotifyResponse> PutAsync(string path, Dictionary<string, string> data)
         {
-            string url = string.Format("{0}/{1}", _baseUrl, path);
+            string url = string.Format("{0}{1}", _baseUrl, path);
 
             HttpClient client = new HttpClient();
 
@@ -153,7 +153,7 @@ namespace wrappify.Wrappers
 
         public async Task<SpotifyResponse> PutAsync(string path, Dictionary<string, string> data, string accessToken, bool bearer)
         {
-            string url = string.Format("{0}/{1}", _baseUrl, path);
+            string url = string.Format("{0}{1}", _baseUrl, path);
 
             HttpClient client = new HttpClient();
 
@@ -174,7 +174,7 @@ namespace wrappify.Wrappers
 
         public async Task<SpotifyResponse> DeleteAsync(string path, string accessToken, bool bearer)
         {
-            string url = string.Format("{0}/{1}", _baseUrl, path);
+            string url = string.Format("{0}{1}", _baseUrl, path);
 
             HttpClient client = new HttpClient();
 
@@ -191,7 +191,7 @@ namespace wrappify.Wrappers
 
         public async Task<SpotifyResponse> DeleteAsync(string path, string data, string accessToken, bool bearer)
         {
-            string url = string.Format("{0}/{1}", _baseUrl, path);
+            string url = string.Format("{0}{1}", _baseUrl, path);
 
             HttpClient client = new HttpClient();
             

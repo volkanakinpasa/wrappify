@@ -126,17 +126,7 @@ namespace wrappify.Tests
         }
 
         [TestMethod]
-        [Ignore]
-        public async Task GetAnAlbumTest_Wit_hHttwrap_Strategy()
-        {
-            RequestConfiguration requestConfiguration = new RequestConfiguration(Host, Port, Scheme);
-            IHttpWrapper httpWrapperStrategy = new HttWrapWrapper(requestConfiguration);
-            ISpotifyClient client = new SpotifyClient(httpWrapperStrategy);
-            Album album = await client.GetAnAlbum("07DseFAuj1KMp807W9XZVl");
-        }
-
-        [TestMethod]
-        [Ignore]
+        //[Ignore]
         public async Task GetAnAlbumTest_Wit_wrapper_Strategy()
         {
             RequestConfiguration requestConfiguration = new RequestConfiguration(Host, Port, Scheme);
