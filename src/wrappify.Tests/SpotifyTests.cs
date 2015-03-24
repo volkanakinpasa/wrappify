@@ -126,31 +126,6 @@ namespace wrappify.Tests
         }
 
         [TestMethod]
-        public void GetAuthorizeUrlTest_QueryString_Values_Should_Match()
-        {
-            const string scopes = "playlist-read-private, playlist-modify-public, playlist-modify-private, user-library-modify, user-read-private";
-            const string clientId = "12345678asdfghjkl";
-            const string redirectUri = "http://localhost/callback";
-
-            RequestConfiguration requestConfiguration = new RequestConfiguration(Host, Port, Scheme);
-
-            IHttpWrapper httpWrapper = new HttpWrapper(requestConfiguration);
-
-            ISpotifyClient client = new SpotifyClient(httpWrapper);
-
-            string authorizeUrl = client.GetAuthorizeUrl(clientId, redirectUri, scopes);
-
-            Uri uri = new Uri(authorizeUrl);
-
-            NameValueCollection nameValueCollection = HttpUtility.ParseQueryString(uri.Query);
-
-            nameValueCollection["client_id"].Should().Be(clientId);
-            nameValueCollection["response_type"].Should().Be("code");
-            nameValueCollection["redirect_uri"].Should().Be(redirectUri);
-            nameValueCollection["scope"].Should().Be(scopes);
-        }
-
-        [TestMethod]
         [Ignore]
         public async Task GetAnAlbumTest_Wit_hHttwrap_Strategy()
         {
