@@ -7,7 +7,7 @@ before_build:
   - nuget restore .\src\wrappify.sln
 
 build:
-  project: wrappify.sln       
+  project: .\src\wrappify.sln      
   verbosity: minimal
 
 test:
