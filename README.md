@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/volkanakinpasa/wrappify.png?label=ready&title=Ready)](https://waffle.io/volkanakinpasa/wrappify)
 #wrappify
 ###### client wrapper to connect Spotify web api
 
