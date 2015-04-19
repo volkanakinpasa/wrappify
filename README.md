@@ -4,6 +4,11 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/is9kqbv2ous3aypd/branch/master?svg=true)](https://ci.appveyor.com/project/volkanakinpasa/wrappify/branch/master)
 
+####**Nuget**
+
+
+      Install-Package wrappify
+
 ####**create new instance**
 
 
